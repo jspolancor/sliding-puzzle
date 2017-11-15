@@ -36,8 +36,15 @@ function initializePuzzle(puzzleSize){
     }
 }
 
+/**
+ * Scrambles the puzzle
+ */
 function scramblePuzzle(){
-
+    var puzzle = document.getElementById('puzzle');
+    var tiles = document.getElementsByClassName('tile');
+    for (var i = tiles.length; i >= 0; i--) {
+        puzzle.appendChild(tiles[Math.random() * i | 0]);
+    }    
 }
 
 function moveTile(){
