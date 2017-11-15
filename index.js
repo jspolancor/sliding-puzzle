@@ -1,6 +1,7 @@
 var puzzleSize = 4;
 var initialTilesPosition = initializePuzzle(puzzleSize);
-scramblePuzzle();
+//scramblePuzzle();
+scramblePuzzleByMovingTiles();
 
 /**
  * Initializes the puzzle, works with any size given
@@ -43,11 +44,13 @@ function initializePuzzle(puzzleSize) {
         tiles[i].style.width = tileSize + '%';
         tiles[i].style.height = tileSize + '%';
     }
+    // Add the empty class to the first tile
+    tiles[0].className += ' empty';
     return arrayToCheck;
 }
 
 /**
- * Scrambles the puzzle
+ * Randomlly Scrambles the puzzle
  */
 function scramblePuzzle() {
     var puzzle = document.getElementById('puzzle');
@@ -55,8 +58,40 @@ function scramblePuzzle() {
     for (var i = tiles.length; i >= 0; i--) {
         puzzle.appendChild(tiles[Math.random() * i | 0]);
     }
-    // Add the empty class to the first tile
-    tiles[0].className += ' empty';
+}
+
+/**
+ * Scrambles the puzzle by moving the tiles
+ */
+function scramblePuzzleByMovingTiles(){
+    var randomMovementsCount = Math.floor(Math.random() * 100) + 10;
+    var emptyTileIndex = 0;
+    // Create the array of movable tiles
+    for(var i = 0; i < randomMovementsCount; i++){
+        var tiles = document.getElementsByClassName('tile');
+        var emptyTile = document.getElementsByClassName('empty')[0];
+        var movableTilesIndex = [];
+        // randomly move a tile
+        // Get empty tile index
+        for(var k = 0; k < tiles.length; k++){
+            if(emptyTile == tiles[k]){
+                emptyTileIndex = k;
+            }
+        }
+        for(var j = 0; j < tiles.length; j++){
+            var canBeMovedToTheLeft = j - 1 == emptyTileIndex && j % puzzleSize != 0;
+            var canBeMovedToTheRight = j + 1 == emptyTileIndex && (j + 1) % puzzleSize != 0;
+            var canBeMovedUp = j >= puzzleSize && j - puzzleSize == emptyTileIndex;
+            var canBeMovedDown = j + puzzleSize < tiles.length - 1 && j + puzzleSize == emptyTileIndex;
+            // If it can be moved push it to the array
+            if(canBeMovedToTheLeft || canBeMovedToTheRight || canBeMovedUp || canBeMovedDown){
+                movableTilesIndex.push(j);
+            }
+        }
+        // move one of the tiles
+        var randTileIndex = movableTilesIndex[Math.floor(Math.random() * movableTilesIndex.length)];
+        moveTile(tiles[randTileIndex]);
+    }
 }
 
 /**
