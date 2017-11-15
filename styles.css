@@ -27,6 +27,6 @@
     #puzzle{
         width: 100vw;
         height: 100vw;
-        background-size: cover;
+        background-size: 100vw 100vw;
     }
 }
