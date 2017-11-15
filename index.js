@@ -1,5 +1,6 @@
-var puzzleSize = 4;
+var puzzleSize = 3;
 var initialTilesPosition = initializePuzzle(puzzleSize);
+var start = false;
 //scramblePuzzle();
 scramblePuzzleByMovingTiles();
 
@@ -92,6 +93,7 @@ function scramblePuzzleByMovingTiles(){
         var randTileIndex = movableTilesIndex[Math.floor(Math.random() * movableTilesIndex.length)];
         moveTile(tiles[randTileIndex]);
     }
+    start = true;
 }
 
 /**
@@ -131,7 +133,7 @@ function swapTiles(tile1, tile2) {
     tile2.parentNode.replaceChild(clonedTile1, tile2);
     tile1.parentNode.replaceChild(clonedTile2, tile1);
     var gameOverYet = gameOver();
-    if(gameOverYet){
+    if(gameOverYet && start){
         alert('GAME OVER!!');
     }
 }
