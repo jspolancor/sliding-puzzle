@@ -1,4 +1,4 @@
-var puzzleSize = 3;
+var puzzleSize = 4;
 var initialTilesPosition = initializePuzzle(puzzleSize);
 scramblePuzzle();
 
