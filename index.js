@@ -30,8 +30,8 @@ function initializePuzzle(puzzleSize) {
     var columnsStepper = 0; // stepper for the columns
     var rowsStepper = 0; // stepper for the rows
     for (var i = 0; i < tiles.length; i++) {
-        var xBgPosition = columnsStepper * tileStep;
-        var yBgPosition = rowsStepper * tileStep;
+        var xBgPosition = Math.round( columnsStepper * tileStep * 10 ) / 10;
+        var yBgPosition = Math.round( rowsStepper * tileStep * 10 ) / 10;
         columnsStepper++;
         if (xBgPosition == 100) {
             // If xBgPosition equals 100 it means that we reach the las tile in
