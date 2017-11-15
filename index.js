@@ -1,4 +1,5 @@
-initializePuzzle(4);
+var puzzleSize = 3;
+var initialTilesPosition = initializePuzzle(puzzleSize);
 scramblePuzzle();
 
 /**
@@ -10,6 +11,8 @@ function initializePuzzle(puzzleSize) {
     var puzzle = document.getElementById('puzzle');
     var tileSize = 100 / puzzleSize;
     var tileStep = 100 / (puzzleSize - 1);
+    // When the current tiles position are equal with this initial array, game over!
+    var arrayToCheck = []; 
     // Create the tiles elements
     for (var i = 0; i < puzzleSize * puzzleSize; i++) {
         var tile = document.createElement('div');
@@ -35,10 +38,12 @@ function initializePuzzle(puzzleSize) {
             columnsStepper = 0;
             rowsStepper++;
         }
+        arrayToCheck.push(xBgPosition + '% ' + yBgPosition + '%');
         tiles[i].style.backgroundPosition = xBgPosition + '% ' + yBgPosition + '%';
         tiles[i].style.width = tileSize + '%';
         tiles[i].style.height = tileSize + '%';
     }
+    return arrayToCheck;
 }
 
 /**
@@ -59,9 +64,22 @@ function scramblePuzzle() {
  * @param {element} tile 
  */
 function moveTile(tile) {
+    var tiles = document.getElementsByClassName('tile');
     var emptyTile = document.getElementsByClassName('empty')[0];
+    var emptyTileIndex, tileIndex;
+    for(var i = 0; i < tiles.length; i++){
+        // Get empty tile index, and clicked tile index
+        if(tiles[i] == emptyTile){ emptyTileIndex = i; }
+        if(tiles[i] == tile){ tileIndex = i; }
+    }
+    // check if the empty tile and the tile to move are next to each other
+    var nextToEachOther = tileIndex == emptyTileIndex - 1 && (tileIndex + 1) % puzzleSize != 0 || 
+    tileIndex == emptyTileIndex + 1 && (emptyTileIndex + 1) % puzzleSize != 0|| 
+    tileIndex == emptyTileIndex + puzzleSize || tileIndex == emptyTileIndex - puzzleSize; 
     // swap tile with the empty one
-    swapTiles(tile, emptyTile);
+    if(tile != emptyTile && nextToEachOther){
+        swapTiles(tile, emptyTile);
+    }
 }
 
 /**
@@ -77,8 +95,22 @@ function swapTiles(tile1, tile2) {
     clonedTile2.addEventListener('click', function () { moveTile(this); });
     tile2.parentNode.replaceChild(clonedTile1, tile2);
     tile1.parentNode.replaceChild(clonedTile2, tile1);
+    var gameOverYet = gameOver();
+    if(gameOverYet){
+        alert('GAME OVER!!');
+    }
 }
 
+/**
+ * Checks if the game is over
+ */
 function gameOver() {
-
+    var tiles = document.getElementsByClassName('tile');   
+    var gameOver = true;
+    for(var i = 0; i < tiles.length; i++){
+        if(tiles[i].style.backgroundPosition != initialTilesPosition[i]){
+            gameOver = false;
+        }
+    }
+    return gameOver;
 }
