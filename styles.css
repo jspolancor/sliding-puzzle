@@ -7,14 +7,24 @@
     justify-content: center;
 }
 
-.puzzle{
+#puzzle{
     width: 500px;
     height: 500px;
     background: url(img/monks.jpg);
 }
 
+.tile{
+    background: inherit;
+    outline: solid black 1px;
+    float: left;
+}
+
+.tile.empty{
+    background: black;
+}
+
 @media(max-width: 500px){
-    .puzzle{
+    #puzzle{
         width: 100vw;
         height: 100vw;
         background-size: cover;
