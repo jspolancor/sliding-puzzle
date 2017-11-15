@@ -15,7 +15,7 @@
 }
 
 .tile{
-    background: url(img/monks.jpg);
+    background: url(/img/monks.jpg);
     outline: solid black 5px;
     position: relative;
     float: left;
