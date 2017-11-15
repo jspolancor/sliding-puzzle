@@ -8,14 +8,16 @@
 }
 
 #puzzle{
+    border: solid black 5px;
+    background: black;
     width: 500px;
     height: 500px;
-    background: url(img/monks.jpg);
 }
 
 .tile{
-    background: inherit;
-    outline: solid black 1px;
+    background: url(img/monks.jpg);
+    outline: solid black 5px;
+    position: relative;
     float: left;
 }
 
@@ -27,6 +29,8 @@
     #puzzle{
         width: 100vw;
         height: 100vw;
+    }
+    .tile{
         background-size: 100vw 100vw;
     }
 }
