@@ -1,0 +1,27 @@
+{
+  "name": "sliding-puzzle",
+  "version": "1.0.0",
+  "description": "A sliding puzzle",
+  "main": "index.js",
+  "dependencies": {
+    "jasmine": "^2.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jspolancor/sliding-puzzle.git"
+  },
+  "keywords": [
+    "sliding",
+    "puzzle"
+  ],
+  "author": "Juan Sebastian Polanco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jspolancor/sliding-puzzle/issues"
+  },
+  "homepage": "https://github.com/jspolancor/sliding-puzzle#readme"
+}
